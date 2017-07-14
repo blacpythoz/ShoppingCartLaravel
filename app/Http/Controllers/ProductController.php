@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \App\Product;
 use \App\Feature;
+use \App\Category;
+use \App\Http\Requests\StoreProductInfo;
 
 class ProductController extends Controller
 {
@@ -15,18 +17,24 @@ class ProductController extends Controller
 
     //
     public function index() {
-    	$products=Product::all();
+    	$products=Product::orderBy('id','desc')->paginate(10);
     	return view('products.index',compact('products'));
     }
 
     public function create() {
-    	return view('products.create');
-    }
-    public function edit($id) {
-        $product = Product::find($id);
-        return view('products.edit',compact('product'));
+         $categories= Category::all();
+        return view('products.create',compact('categories'));
     }
 
+
+    // for editing the product
+    public function edit($id) {
+         $categories= Category::take(9)->get();
+        $product = Product::find($id);
+        return view('products.edit',compact(['product','categories']));
+    }
+
+    // for searching the products
     public function search(Request $request) {
         //dd($request->all());
         $fromDate=$request->fromDate;
@@ -37,6 +45,7 @@ class ProductController extends Controller
 
         $query = (new Product)->newQuery();
 
+        // searching 
         if($term) {
            $query->where('name','LIKE','%'.$term.'%');
         }
@@ -49,21 +58,12 @@ class ProductController extends Controller
            $query->whereBetween('price', array($fromPrice, $toPrice));
         }
 
-        $products=$query->get();
+        $products=$query->paginate(10);
 
        return view('products.index',compact('products'));
    }
 
-    public function store(Request $request) {
-
-    	$this->validate($request,[
-    		'name'=>'required',
-    		'discount'=>'required',
-    		'price'=>'required',
-    		'size'=>'required',
-    		'color'=>'required',
-    		'weight'=>'required',
-    		]);
+    public function store(StoreProductInfo $request) {
 
     	$product = new Product;
     	$product->name=$request->name;
@@ -75,6 +75,7 @@ class ProductController extends Controller
     	$feature->weight=$request->weight;
     	$feature->save();
     	$product->feature_id=$feature->id;
+        $product->category_id=$request->category_id;
 
     	if($request->hasFile('image')) {
             $image=$request->file('image');
@@ -90,17 +91,8 @@ class ProductController extends Controller
     	//dd($request->all());
     }
 
-    public function update(Request $request,$id) {
+    public function update(StoreProductInfo $request,$id) {
         //dd($request->all());
-
-        $this->validate($request,[
-            'name'=>'required',
-            'discount'=>'required',
-            'price'=>'required',
-            'size'=>'required',
-            'color'=>'required',
-            'weight'=>'required',
-            ]);
 
         $product = Product::find($id);
         $product->name=$request->name;
@@ -112,6 +104,7 @@ class ProductController extends Controller
         $feature->weight=$request->weight;
         $feature->save();
         $product->feature_id=$feature->id;
+        $product->category_id=$request->category_id;
 
         if($request->hasFile('image')) {
             $image=$request->file('image');

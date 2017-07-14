@@ -23,11 +23,13 @@ class LoginController extends Controller
             // Authentication passed...
             $message['messagecode']=200;
             $message['message']="Authorized";
+            $user=User::find(Auth::user()->id);
+            return response()->json(array('message'=>$message,'user'=>$user));
+
         } else {
             $message['messagecode']=401;
             $message['message']="Unauthorized";
+            return response()->json(array('message'=>$message));
         }
-
-        return response()->json($message);
     }
 }

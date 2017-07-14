@@ -18,10 +18,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/product/index', 'Api\ProductController@index');
+Route::get('/product/{id}', 'Api\ProductController@show');
+Route::post('register', 'Api\Auth\RegisterController@register');
+Route::post('login', 'Api\Auth\LoginController@login');
+Route::post('search', 'Api\SearchController@search');
 
 Route::prefix('user')->group(function() {
-	Route::post('register', 'Api\Auth\RegisterController@register');
-	Route::post('login', 'Api\Auth\LoginController@login');
-	Route::get('search', 'Api\SearchController@search');
+	Route::post('order', 'Api\OrderController@order');
 });
 

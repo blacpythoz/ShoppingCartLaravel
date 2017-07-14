@@ -11,10 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-	return view('welcome');
-});
 
+Route::get('/', 'HomeController@index')->name('home');
 Route::prefix('admin')->group(function() {
 	Auth::routes();
 	Route::get('/home', 'HomeController@index')->name('home');
@@ -25,4 +23,10 @@ Route::prefix('admin')->group(function() {
 	Route::get('/product/{id}/edit', 'ProductController@edit')->name('product.edit');
 	//Route::get('/product/{id}/delete', 'ProductController@destroy')->name('product.delete');
 	Route::post('/product/{id}/update', 'ProductController@update')->name('product.update');
+	Route::get('/order/index', 'OrderController@index')->name('order.index');
+	Route::post('/order/search', 'OrderController@search')->name('order.search');
+	Route::get('/order/{id}/edit', 'OrderController@edit')->name('order.edit');
+	Route::post('/order/{id}/update', 'OrderController@update')->name('order.update');
+    Route::resource('category', 'CategoryController');
+    
 });

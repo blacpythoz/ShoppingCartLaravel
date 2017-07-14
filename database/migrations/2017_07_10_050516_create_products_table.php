@@ -21,7 +21,9 @@ class CreateProductsTable extends Migration
             $table->integer('discountPrice');   
             $table->timestamps();
             $table->unsignedInteger('feature_id');   
+            $table->unsignedInteger('category_id')->nullable();   
             $table->foreign('feature_id')->references('id')->on('features');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
         });
     }
 

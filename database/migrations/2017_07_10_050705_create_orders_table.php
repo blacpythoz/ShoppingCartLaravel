@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('product_id');
             $table->unsignedInteger('user_id');
+            $table->string('status')->default('undelivered');
             $table->integer('quantity')->default(1);
             $table->timestamps();
             $table->foreign('product_id')->references('id')->on('products');

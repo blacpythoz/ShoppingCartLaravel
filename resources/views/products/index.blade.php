@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('ActiveViewProduct','active');
 @section('content')
 
 <div class="col-md-12">
@@ -23,6 +24,7 @@
 					<th> #</th>
 					<th> Image </th>
 					<th> Name </th>
+					<th> Category </th>
 					<th> Price </th>
 					<th> D.Price </th>
 					<th> Size </th>
@@ -37,6 +39,7 @@
 					<td> {{ $product->id }} </td>
 					<td> <img src="/uploads/products/{{ $product->image_path }}" width=70px height 70px></td>
 					<td> {{ $product->name }} </td>
+					<td> {{ $product->category->name }} </td>
 					<td> {{ $product->price }} </td>
 					<td> {{ $product->discountPrice }} </td>
 					<td> {{ $product->feature->size }} </td>
@@ -46,7 +49,11 @@
 				</tr>
 				@endforeach
 			</tbody>
+
 		</table>
+		<div class="text-center">
+			{!! $products->links(); !!}
+		</div>
 
 	</div>
 </div>
