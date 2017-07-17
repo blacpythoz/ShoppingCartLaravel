@@ -17,7 +17,7 @@
 		<form action="{{route('order.update',$order->id)}}" method="post">
 			<div class="form-group"> <label for="order_status">Order Status</label>
 				<select class="form-control" name="order_status">
-					<option value="undelivered">Undelivered</option>
+					<option value="processing">Processing</option>
 					<option value="delivered">Delivered</option>
 				</select>
 			</div>

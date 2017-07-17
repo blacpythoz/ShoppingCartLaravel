@@ -22,7 +22,9 @@
 	<div class="row">
 
 
-		<table class="table">
+
+			<div class="panel panel-default">
+		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
 					<th> #</th>
@@ -34,6 +36,7 @@
 					<th> D.Price </th>
 					<th> Quantity </th>
 					<th> Order Date </th>
+					<th> Action </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -54,6 +57,7 @@
 			</tbody>
 
 		</table>
+		</div>
 		<div class="text-center">
 			{!! $orders->links(); !!}
 		</div>

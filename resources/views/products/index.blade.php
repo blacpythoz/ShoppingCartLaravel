@@ -18,7 +18,8 @@
 	<div class="row">
 
 
-		<table class="table">
+			<div class="panel panel-default">
+		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
 					<th> #</th>
@@ -51,6 +52,7 @@
 			</tbody>
 
 		</table>
+		</div>
 		<div class="text-center">
 			{!! $products->links(); !!}
 		</div>

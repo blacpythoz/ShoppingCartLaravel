@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="en">
 @include('partials.head')
 <body>
     <div>
@@ -8,7 +8,6 @@
             @yield('content')
         </div>
     </div>
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    @include('partials.footer')
 </body>
 </html>

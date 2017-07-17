@@ -21,12 +21,12 @@ class OrderController extends Controller
      return view('orders.index',compact(['orders','categories']));
  }
    // for editing the product
-    public function edit($id) {
-        $order = Order::find($id);
+    public function edit(Order $order) {
+        //$order = Order::find($id);
         return view('orders.edit',compact('order'));
     }
-    public function update(Request $request,$id) {
-        $order=Order::find($id);
+    public function update(Request $request,Order $order) {
+        //$order=Order::find($id);
         $order->status=$request->order_status;
         $order->save();
          $orders=Order::orderBy('id','desc')->paginate(10);

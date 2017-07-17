@@ -105,7 +105,7 @@
 </div>
 
 <div class="row">
-	<div class="col-lg-6">
+	<div class="col-lg-8">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Orders Panel</h3>
@@ -116,6 +116,8 @@
 						<thead>
 							<tr>
 								<th>Order #</th>
+								<th>Name</th>
+								<th>Quantity</th>
 								<th>Order Date</th>
 								<th>Order Time</th>
 								<th>Amount (Rs)</th>
@@ -125,6 +127,8 @@
 						@foreach ($orders as $order)	
 							<tr>
 								<td>{{$order->id}}</td>
+								<td> {{ $order->product->name }} </td>
+								<td> {{ $order->quantity }} </td>
 								<td>{{$order->created_at->toFormattedDateString()}}</td>
 								<td>{{$order->created_at->format('h:i A')}}</td>
 								<td>{{$order->product->price}}</td>
