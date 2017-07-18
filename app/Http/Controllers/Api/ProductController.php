@@ -15,7 +15,7 @@ class ProductController extends Controller
 
     public function index() {
        $products=Product::with('medias')->get();
-       $featureImage=Media::all()->where('feature','=','yes');
+       $featureImage=Media::get()->where('feature','=','yes');
        return response()->json(array('product'=>$products,'featureImage'=>$featureImage));
       // return response()->json(array('data' => $products));
    }
