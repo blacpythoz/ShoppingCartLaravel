@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 use \App\Product;
 use \App\Feature;
@@ -12,19 +13,24 @@ use Purifier;
 
 class ProductController extends Controller
 {
-  public function __construct()
+
+
+    protected $repository;
+
+  public function __construct(ProductRepository $repository)
   {
+      $this->repository  = $repository;
     $this->middleware('auth')->except('index');
 }
 
     //
 public function index() {
- $products=Product::orderBy('id','desc')->paginate(10);
+ $products=$this->repository->getItems();
  return view('products.index',compact('products'));
 }
 
 public function create() {
- $categories= Category::all();
+ $categories= $this->repository->getCategories();
  return view('products.create',compact('categories'));
 }
 
