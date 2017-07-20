@@ -7,26 +7,30 @@ use \App\Product;
 use \App\Feature;
 use \App\Order;
 use \App\Category;
+use App\Repositories\OrderRepository;
+
 
 class OrderController extends Controller
 {
-    //
-     //public function __construct()
-    //{
-        //$this->middleware('auth');
-    //}
+    protected $repository;
+
+
+    public function __construct(OrderRepository $repository)
+    {
+        $this->repository  = $repository;
+        $this->middleware('auth')->except('index');
+    }
+
  public function index() {
-     $orders=Order::orderBy('id','desc')->paginate(10);
-     $categories=Category::take(5)->get();
+     $orders=$this->repository->getItems();
+     $categories=$this->repository->getCategories();
      return view('orders.index',compact(['orders','categories']));
  }
    // for editing the product
     public function edit(Order $order) {
-        //$order = Order::find($id);
         return view('orders.edit',compact('order'));
     }
     public function update(Request $request,Order $order) {
-        //$order=Order::find($id);
         $order->status=$request->order_status;
         $order->save();
          $orders=Order::orderBy('id','desc')->paginate(10);
@@ -37,7 +41,6 @@ class OrderController extends Controller
 
       // for searching the products
  public function search(Request $request) {
-        //dd($request->all());
     $fromDate=$request->fromDate;
     $toDate=$request->toDate;
     $term=$request->search;
@@ -66,12 +69,7 @@ class OrderController extends Controller
            $query->where('products.category_id','=',$categoryId);
        }
 
-        //if($fromPrice && $toPrice) {
-           //$query->whereBetween('price', array($fromPrice, $toPrice));
-        //}
-
    $orders=$query->paginate(10);
-   //dd($orders);
      $categories=Category::take(5)->get();
      return view('orders.index',compact(['orders','categories'])); 
 

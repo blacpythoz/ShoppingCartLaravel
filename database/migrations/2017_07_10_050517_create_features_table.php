@@ -18,6 +18,8 @@ class CreateFeaturesTable extends Migration
             $table->string('size');
             $table->string('color');
             $table->string('weight');
+            $table->unsignedInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();
 
         });

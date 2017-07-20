@@ -24,16 +24,13 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $this->validate($request,array(
+        $this->validate(request(),array(
             'name'=>"required|min:2|max:255",
             ));
 
-        $category = new Category;
-        $category->name = $request->name;
-        $category->save();
-
+        Category::create(request(['name']));
         return redirect()->route('category.create');
     }
 
@@ -45,7 +42,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
         $categories=Category::get();
         return view('category.index',compact('categories'));
 
@@ -68,10 +64,8 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
-        $category=Category::find($id);
         return view('category.edit',compact('category'));
     }
 
@@ -82,19 +76,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Category $category)
     {
-        //
-        $this->validate($request,array(
+        $this->validate(request(),array(
             'name'=>"required|min:2|max:255",
             ));
-
-        $category = Category::find($id);
-        $category->name = $request->name;
-        $category->save();
-
+        $category->update(request(['name']));
         return redirect()->route('category.create');
-  
     }
 
     /**
@@ -103,10 +91,8 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
-        $category=Category::find($id);
         $category->delete();
         return redirect()->route('category.index');
     }

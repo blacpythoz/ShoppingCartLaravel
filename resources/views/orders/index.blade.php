@@ -43,7 +43,7 @@
 				@foreach($orders as $order) 
 				<tr>
 					<td> {{ $order->id }} </td>
-					<td> <img src="/uploads/products/{{ $order->product->image_path }}" width=70px height 70px></td>
+					<td> <img src="/uploads/products/{{ $order->product->medias()->first()->path }}" width=70px height 70px></td>
 					<td> {{ $order->product->name }} </td>
 					<td> {{ $order->product->category->name }} </td>
 					<td> {{ $order->status }} </td>

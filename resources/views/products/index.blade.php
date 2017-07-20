@@ -35,18 +35,20 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($products as $product) 
+				@foreach($products as $product)
 				<tr>
 					<td> {{ $product->id }} </td>
-					<td> <img src="/uploads/products/{{ $product->image_path }}" width=70px height 70px></td>
+					<td> <img src="/uploads/products/{{ $product->medias()->first()->path}}" width=70px height 70px></td>
 					<td> {{ $product->name }} </td>
 					<td> {{ $product->category->name }} </td>
 					<td> {{ $product->price }} </td>
+
 					<td> {{ $product->discountPrice }} </td>
 					<td> {{ $product->feature->size }} </td>
 					<td> {{ $product->feature->weight }} </td>
 					<td> {{ $product->feature->color }} </td>
 					<td> <a href="{{route('product.edit',$product->id)}}"> Edit </a></td>
+
 				</tr>
 				@endforeach
 			</tbody>

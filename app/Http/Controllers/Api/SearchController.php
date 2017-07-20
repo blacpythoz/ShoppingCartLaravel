@@ -42,7 +42,7 @@ class SearchController extends Controller
            $query->whereBetween('price', array($fromPrice, $toPrice));
         }
 
-        $products=$query->paginate(10);
+        $products=$query->with('medias')->paginate(10);
        return response()->json($products);
        //return response()->json(array('data' => $products));
 

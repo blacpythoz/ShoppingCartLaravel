@@ -17,15 +17,11 @@ class ProductController extends Controller
        $products=Product::with('medias')->get();
        $featureImage=Media::get()->where('feature','=','yes');
        return response()->json(array('product'=>$products,'featureImage'=>$featureImage));
-      // return response()->json(array('data' => $products));
    }
-   public function show(Product $product) {
-       //$product=Product::find($id);
-       $feature=Feature::find($product->id)->with('medias')->get();
-       $media=$product->medias;
-      return response()->json(array('product'=>$product,'feature'=>$feature));
-
-//       return response()->json($product);
+   public function show(Product $product) {;
+      $product->medias;
+      $product->feature;
+       return response()->json(array('product'=>$product));
    }
 
 }

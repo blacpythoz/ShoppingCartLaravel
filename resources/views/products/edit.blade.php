@@ -34,15 +34,30 @@
 					{{ csrf_field() }}
 					<div class="form-group">
 						<label for="name">Product Name</label>
-						<input type="text" class="form-control" id="name" required name="name" placeholder="Product Name" value="{{$product->name }}">
+						<input type="text" class="form-control" id="name" required name="name" placeholder="Product Name" value="{{old('name')?old('name'):$product->name }}">
+						@if ($errors->has('name'))
+							<span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+						@endif
 					</div>
 					<div class="form-group">
 						<label for="price">Price</label>
-						<input type="text" class="form-control" id="price" required name="price" placeholder="Price" value="{{$product->price }}">
+						<input type="text" class="form-control" id="price" required name="price" placeholder="Price" value="{{old('price')?old('price'):$product->price }}">
+						@if($errors->has('price'))
+							<span class="help-block">
+									<strong>{{$errors->first('price')}}</strong>
+								</span>
+						@endif
 					</div>
 					<div class="form-group">
-						<label for="discount">Discouted Price</label>
-						<input type="text" class="form-control" id="discount" required name="discount" placeholder="Discounted Price" value="{{$product->discountPrice}}">
+						<label for="discountPrice">Discouted Price</label>
+						<input type="text" class="form-control" id="discountPrice" required name="discountPrice" placeholder="Discounted Price" value="{{old('discountPrice')?old('discountPrice'):$product->discountPrice}}">
+						@if($errors->has('discountPrice'))
+							<span class="help-block">
+									<strong>{{$errors->first('discountPrice')}}</strong>
+								</span>
+						@endif
 					</div>
 					<div class="form-group">
 						<label for="category_id">Categories</label>
@@ -54,20 +69,60 @@
 					</div>
 					<div class="form-group">
 						<label for="size">Size</label>
-						<input type="text" class="form-control" id="size" required name="size" value="{{$product->feature->size}}">
+						<input type="text" class="form-control" id="size" required name="size" value="{{old('size')?old('size'):$product->feature->size}}">
+						@if($errors->has('size'))
+							<span class="help-block">
+									<strong> {{ $errors->first('size') }}</strong>
+								</span>
+						@endif
 					</div>
 					<div class="form-group">
 						<label for="color">Color</label>
-						<input type="text" class="form-control" id="color" required name="color" value="{{$product->feature->color}}">
+						<input type="color" name="color" value="{{old('color')?old('color'):$product->color}}">
+						@if($errors->has('color'))
+							<span class="help-block">
+									<strong> {{ $errors->first('color') }}</strong>
+								</span>
+						@endif
 					</div>
 					<div class="form-group">
 						<label for="weight">Weight</label>
-						<input type="text" class="form-control" id="weight" required name="weight" value="{{$product->feature->weight}}">
+						<input type="text" class="form-control" id="weight" required name="weight" value="{{old('weight')?old('weight'):$product->feature->weight}}">
+						@if($errors->has('weight'))
+							<span class="help-block">
+									<strong> {{ $errors->first('weight') }}</strong>
+								</span>
+						@endif
+					</div>
+
+					<div class="form-group">
+						<label for="information">Brand</label>
+						<input type="text" class="form-control" id="brand" value="{{old('brand')?old('brand'):$product->brand}}" name="brand" required placeholder="Brand of the product">
+						@if($errors->has('brand'))
+							<span class="help-block">
+									<strong> {{ $errors->first('brand') }}</strong>
+								</span>
+						@endif
 					</div>
 					<div class="form-group">
-						<label for="weight">Description</label>
-						<textarea id="summernote" name="description">{{$product->description}}</textarea>
+						<label for="information">Short Information</label>
+						<input type="text" class="form-control" id="information" value="{{old('information')?old('information'):$product->information}}" name="information" required placeholder="Short Details of the product">
+						@if($errors->has('information'))
+							<span class="help-block">
+									<strong> {{ $errors->first('information') }}</strong>
+								</span>
+						@endif
 					</div>
+
+					<div class="form-group">
+						<label for="weight">Description</label>
+						<textarea id="summernote" name="description">{{old('description')?old('description'):$product->description}}</textarea>
+						@if($errors->has('description'))
+							<span class="help-block">
+									<strong> {{ $errors->first('description') }}</strong>
+								</span>
+						@endif
+						</div>
 					<div class="form-group">
 						<label for="image">Product Image</label>
 						<input type="file" id="image" class="fileHolder with-preview" multiple name="images[]">
