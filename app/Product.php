@@ -15,7 +15,7 @@ class Product extends Model
         return $this->hasOne(Feature::class);
     }
     public function category() {
-    	return $this->belongsTo('App\Category','category_id','id');
+        return $this->belongsTo('App\Category','category_id','id');
     }
     public function medias() {
         return $this->hasMany('App\Media','product_id','id')->where('feature','no');

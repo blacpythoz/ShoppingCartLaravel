@@ -46,11 +46,7 @@ class ProductRepository
         $fromDate=array_get('$data','fromDate');
         $toDate=array_get('$data','toDate');
         $term=array_get('$data','search');
-        //$fromDate = request('fromDate');
-       // $toDate = request('toDate');
-        //$term = request('search');
-        //$fromPrice = request('fromPrice');
-        //$toPrice = request('toPrice');
+
 
         $query = (new Product)->newQuery();
 
@@ -73,12 +69,15 @@ class ProductRepository
 
     public function saveProduct()
     {
+        dd(request()->all());
+
+       // dd(request()->hasFile('images'));
+
         $data = request(['name', 'discountPrice', 'category_id', 'price', 'description', 'information', 'brand']);
         // Purify the data
         $data['description'] = Purifier::clean(request('description'));
         $product = Product::create($data);
         $product->feature()->create(request(['size', 'color', 'weight']));
-
         if (request()->hasFile('images')) {
             foreach (request()->file('images') as $image) {
                 $this->saveImage($product, new Media, $image);

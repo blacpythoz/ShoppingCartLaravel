@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/product/index', 'Api\ProductController@index');
 Route::get('/product/{product}', 'Api\ProductController@show');
+Route::get('/user/{user}', 'Api\UserController@show');
 Route::post('register', 'Api\Auth\RegisterController@register');
 Route::post('login', 'Api\Auth\LoginController@login');
 Route::post('search', 'Api\SearchController@search');

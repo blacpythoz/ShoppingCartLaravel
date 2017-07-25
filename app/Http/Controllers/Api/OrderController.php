@@ -16,6 +16,8 @@ class OrderController extends Controller
         $order->product_id=$request->product_id;
         $order->user_id=$request->user_id;
         $order->quantity=$request->quantity;
+        $order->phone=$request->phone;
+        $order->address=$request->address;
         $order->save();
 
         $message['messagecode']=200;
