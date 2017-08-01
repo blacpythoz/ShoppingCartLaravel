@@ -69,7 +69,7 @@ class ProductRepository
 
     public function saveProduct()
     {
-        dd(request()->all());
+       // dd(request()->all());
 
        // dd(request()->hasFile('images'));
 
