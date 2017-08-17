@@ -28,4 +28,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token','type','category'
     ];
+
+    public function preOrders() {
+        return $this->hasMany('App\Order','user_id','id')->where('status','pre')->with('product');
+    }
 }
