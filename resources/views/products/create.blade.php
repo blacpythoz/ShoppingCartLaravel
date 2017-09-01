@@ -51,6 +51,15 @@
 								</span>
 							@endif
 						</div>
+						<div class="form-group">
+							<label for="stock">In Stock</label>
+							<input type="text" class="form-control" id="stock" name="stock" value="{{old('stock')}}" required placeholder="In Stock">
+							@if($errors->has('stock'))
+								<span class="help-block">
+									<strong>{{$errors->first('stock')}}</strong>
+								</span>
+							@endif
+						</div>
 						<div class="form-group"> <label for="category_id">Categories</label>
 							<select class="form-control" name="category_id">
 								@foreach ($categories as $category)

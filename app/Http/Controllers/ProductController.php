@@ -52,8 +52,6 @@ public function store(StoreProductInfo $request) {
   return redirect()->route('product.index');
 }
 
-
-
 public function update(StoreProductInfo $request,Product $product) {
  $this->repository->updateProduct($request,$product);
  return redirect()->route('product.index');

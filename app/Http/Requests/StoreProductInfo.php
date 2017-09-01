@@ -34,6 +34,7 @@ class StoreProductInfo extends FormRequest
             'description'=>'required',
             'information'=>'required',
             'brand'=>'required',
+            'stock'=>'required|integer',
             //
         ];
     }

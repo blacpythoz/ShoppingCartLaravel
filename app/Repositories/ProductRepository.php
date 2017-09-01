@@ -73,7 +73,7 @@ class ProductRepository
 
        // dd(request()->hasFile('images'));
 
-        $data = request(['name', 'discountPrice', 'category_id', 'price', 'description', 'information', 'brand']);
+        $data = request(['name', 'discountPrice', 'category_id', 'price', 'description', 'information', 'brand','stock']);
         // Purify the data
         $data['description'] = Purifier::clean(request('description'));
         $product = Product::create($data);
@@ -94,7 +94,7 @@ class ProductRepository
 
     public function updateProduct(Request $request, Product $product)
     {
-        $data = request(['name', 'discountPrice', 'category_id', 'price', 'description', 'information', 'brand']);
+        $data = request(['name', 'discountPrice', 'category_id', 'price', 'description', 'information', 'brand','stock']);
         $data['description'] = Purifier::clean(request('description'));
         $product->update($data);
         $product->feature()->update(request(['size','color','weight']));

@@ -51,6 +51,15 @@
 						@endif
 					</div>
 					<div class="form-group">
+						<label for="stock">In Stock</label>
+						<input type="text" class="form-control" id="stock" name="stock" value="{{old('stock')?old('stock'):$product->stock }}" required placeholder="In Stock">
+						@if($errors->has('stock'))
+							<span class="help-block">
+									<strong>{{$errors->first('stock')}}</strong>
+								</span>
+						@endif
+					</div>
+					<div class="form-group">
 						<label for="discountPrice">Discouted Price</label>
 						<input type="text" class="form-control" id="discountPrice" required name="discountPrice" placeholder="Discounted Price" value="{{old('discountPrice')?old('discountPrice'):$product->discountPrice}}">
 						@if($errors->has('discountPrice'))

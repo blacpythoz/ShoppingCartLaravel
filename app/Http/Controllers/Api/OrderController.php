@@ -16,16 +16,27 @@ class OrderController extends Controller
         $order = new Order;
         $order->product_id=$request->product_id;
         $order->user_id=$request->user_id;
-        $order->quantity=$request->quantity;
+
         $order->phone=$request->phone;
         $order->address=$request->address;
         if($request->status=="pre") {
             $order->status="pre";
         }
         $order->save();
+        $order->quantity=$request->quantity;
 
-        $message['messagecode']=200;
-        $message['message']="Successfully ordered the product";
+        if($order->quantity <= $order->product->stock) {
+            $order->product->stock=intval($order->product->stock)-intval($order->quantity);
+            $order->product->save();
+            $message['messagecode']=200;
+            $message['message']="Successfully ordered the product";
+        } else {
+            $order->delete();
+            $message['messagecode']=400;
+            $message['message']="Cannot order the product";
+        }
+
+
         return response()->json($message);
     }
     public function preOrderInfo(User $user) {
